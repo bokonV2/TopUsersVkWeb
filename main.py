@@ -50,13 +50,17 @@ class Server():
 
                 bgDef = request.form.get('BGDef') #1 'bg1'
                 dayPromej = request.form.get('dayPromej') #1 ''
+                try:
+                    dayPromej = int(dayPromej)
+                except:
+                    dayPromej = 1
                 malePos = request.form.get('MalePos') #1 'all'
                 idCountry = request.form.get('IDCountry') #1 ''
                 noAva = request.form.get('NoAva') #0 {'on'}
 
-                self.vk = VkParser(vkId)
-                self.vk.start()
-                self.dr.start(self.vk.allPerson)
+                self.vk = VkParser()
+                self.vk.startUrl(vkId, dayPromej)
+                self.dr.start(self.vk.allPerson, bgDef)
                 #
                 # background
                 # vkId

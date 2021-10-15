@@ -11,7 +11,7 @@ class Draw:
     def __init__(self):
         pass
 
-    def start(self, persons, bgId=1, frameId=1):
+    def start(self, persons, bgId, frameId=1):
         self.persons = persons
         lens = len(persons)
         self.sellectBg(bgId)
@@ -19,11 +19,11 @@ class Draw:
         self.drawInLen(lens)
         self.saveEnd()
 
-    def sellectBg(self, index=1):
-        self.im1 = Image.open('static/images/bg.png').convert('RGBA')
+    def sellectBg(self, index="bg1"):
+        self.im1 = Image.open(f'static/images/{index}.png').convert('RGBA').resize((1064,946))
 
     def sellectFrame(self, len, index=1):
-        self.im2 = Image.open(f'images/{len}_{index}.png').convert('RGBA')
+        self.im2 = Image.open(f'static/images/frame/{len}_{index}.png').convert('RGBA')
 
     def saveEnd(self):
         self.im1 = self.im1.convert('RGB')
@@ -56,6 +56,3 @@ class Draw:
             self.im1.paste(im3,(js[i][0] - js[i][3],js[i][1]))
             im3.close()
         self.im1.paste(self.im2, mask=self.im2)
-
-
-# Draw().start(5)
