@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html style="font-size: 16px;">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <meta name="page_type" content="np-template-header-footer-from-plugin">
+  <title>Главная</title>
+  <link rel="stylesheet" href="static\css\nicepage.css" media="screen">
+  <link rel="stylesheet" href="static\css\index.css" media="screen">
+  <!-- <script class="u-script" type="text/javascript" src="static\js\jquery.js" defer=""></script> -->
+  <script class="u-script" type="text/javascript" src="static\js\nicepage.js" defer=""></script>
+  <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
+
+
+  <script type="application/ld+json">
+    {
+      "@context": "http://schema.org",
+      "@type": "Organization",
+      "name": "Site1",
+      "logo": "static/images/default-logo.png"
+    }
+  </script>
+  <meta name="theme-color" content="#478ac9">
+  <meta property="og:title" content="Главная">
+  <meta property="og:description" content="">
+  <meta property="og:type" content="website">
+</head>
+
+<body class="u-body u-stick-footer">
+  <header class="u-clearfix u-header u-header" id="Menu">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+      <a href="/" data-page-id="31954487" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40" title="Главная">
+        <img src="static/images/default-logo.png" class="u-logo-image u-logo-image-1">
+      </a>
+      <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
+        <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
+          <a class="u-button-style u-custom-left-right-menu-spacing u-custom-padding-bottom u-custom-top-bottom-menu-spacing u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="#">
+            <svg>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#menu-hamburger"></use>
+            </svg>
+            <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+              <defs>
+                <symbol id="menu-hamburger" viewBox="0 0 16 16" style="width: 16px; height: 16px;">
+                  <rect y="1" width="16" height="2"></rect>
+                  <rect y="7" width="16" height="2"></rect>
+                  <rect y="13" width="16" height="2"></rect>
+                </symbol>
+              </defs>
+            </svg>
+          </a>
+        </div>
+        <div class="u-custom-menu u-nav-container">
+          <ul class="u-nav u-unstyled u-nav-1">
+            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Главная.html" style="padding: 10px 20px;">Главная</a>
+            </li>
+          </ul>
+        </div>
+        <div class="u-custom-menu u-nav-container-collapse">
+          <div class="u-black u-container-style u-inner-container-layout u-opacity u-opacity-95 u-sidenav">
+            <div class="u-inner-container-layout u-sidenav-overflow">
+              <div class="u-menu-close"></div>
+              <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/" style="padding: 10px 20px;">Главная</a>
+                </li>
+              </ul>
+            </div>
+          </div>
+          <div class="u-black u-menu-overlay u-opacity u-opacity-70"></div>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <section class="u-clearfix u-section-1" id="Main">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <div class="u-clearfix u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <img src="static/images/bg.png" width="33.3%">
+            <img src="static/images/bgTMP.png" width="33.3%">
+            <img src="static/images/bg.png" width="33.3%">
+          </div>
+        </div>
+      <h6 class="u-text u-text-default u-text-1">Фон 1</h6>
+      <h6 class="u-text u-text-default u-text-2">Свой фон</h6>
+      <h6 class="u-text u-text-default u-text-3">Фон 2</h6>
+      </div>
+      <div class="u-align-center u-clearfix u-custom-html u-custom-html-1">
+        <style></style>
+        <form action="" method="post" enctype="multipart/form-data">
+          <label for="text-aaec" class="u-label u-label-1">Загрузите свой фон.png</label>
+          <input type="file" name="background">
+          <input type="submit" class="u-btn u-btn-submit u-button-style">
+        </form>
+        {% for cat, msg in get_flashed_messages(True) %}
+        <div class="flash {{cat}}">{{msg}}</div>
+        {% endfor %}
+      </div>
+      <div class="u-align-center u-form u-form-1">
+        <form action="" method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+          <div class="u-form-group u-form-name">
+            <label for="name-c6f2" class="u-label u-label-2">ID группы </label>
+            <input type="text" placeholder="ID " id="name-c6f2" name="vkId" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-1" required="">
+          </div>
+          <div class="u-form-group u-form-radiobutton u-form-group-2">
+            <div class="u-form-radio-button-wrapper">
+              <input type="radio" name="BGDef" value="bg1" required="required">
+              <label class="u-label" for="radiobutton">Фон 1</label>
+              <br>
+              <input type="radio" name="BGDef" value="bg2" required="required">
+              <label class="u-label" for="radiobutton">Фон 2</label>
+              <br>
+              <input type="radio" name="BGDef" value="bgTMP" required="required">
+              <label class="u-label" for="radiobutton">Свой фон</label>
+              <br>
+            </div>
+          </div>
+          <div class="u-form-group u-form-group-3">
+            <label for="text-e07e" class="u-label u-label-6">Промежуток дней</label>
+            <input type="text" id="text-e07e" name="dayPromej" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-2" placeholder="по умолчанию 0">
+          </div>
+          <div class="u-form-group u-form-radiobutton u-form-group-4">
+            <div class="u-form-radio-button-wrapper">
+              <input type="radio" name="MalePos" value="all" required="required">
+              <label class="u-label" for="radiobutton-1">Всех</label>
+              <br>
+              <input type="radio" name="MalePos" value="men" required="required">
+              <label class="u-label" for="radiobutton-1">Мужчин</label>
+              <br>
+              <input type="radio" name="MalePos" value="wum" required="required">
+              <label class="u-label" for="radiobutton-1">Женщин</label>
+              <br>
+            </div>
+          </div>
+          <div class="u-form-group u-form-group-5">
+            <label for="text-8eb9" class="u-label u-label-10">ID города</label>
+            <input type="text" placeholder="По умолчанию все" id="text-8eb9" name="IDCountry" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-3">
+          </div>
+          <div class="u-form-checkbox u-form-group u-form-group-6">
+            <input type="checkbox" id="checkbox-6471" name="NoAva" value="On">
+            <label for="checkbox-6471" class="u-label u-label-11">не поздравлять если нету аватара</label>
+          </div>
+          <!-- <div class="u-align-left u-form-group u-form-submit u-form-group-7">
+            <a class="u-btn u-btn-submit u-button-style">Отправить</a>
+            <input type="submit" value="submit" class="u-form-control-hidden">
+          </div> -->
+          <input type="submit" class="u-btn u-btn-submit u-button-style">
+
+          <div class="u-form-send-message u-form-send-success"> Спасибо! Ваше сообщение отправлено. </div>
+          <div class="u-form-send-error u-form-send-message"> Отправка не удалась. Пожалуйста, исправьте ошибки и попробуйте еще раз. </div>
+          <!-- <input type="hidden" value="" name="recaptchaResponse"> -->
+        </form>
+
+      </div>
+    </div>
+  </section>
+
+
+  <footer class="u-align-center u-clearfix u-footer u-grey-80 u-footer" id="Footer">
+    <div class="u-align-left u-clearfix u-sheet u-sheet-1"></div>
+  </footer>
+</body>
+
+</html>
