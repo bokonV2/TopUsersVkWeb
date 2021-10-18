@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="static\css\index.css" media="screen">
   <!-- <script class="u-script" type="text/javascript" src="static\js\jquery.js" defer=""></script> -->
   <script class="u-script" type="text/javascript" src="static\js\nicepage.js" defer=""></script>
+  <script class="u-script" type="text/javascript" src="static\js\my.js" defer=""></script>
   <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
 
 
@@ -29,7 +30,7 @@
   <meta property="og:type" content="website">
 </head>
 
-<body class="u-body u-stick-footer">
+<body data-home-page="/" data-home-page-title="Главная" class="u-body u-stick-footer" onload="spin()">
   <header class="u-clearfix u-header u-header" id="Menu">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <a href="/" data-page-id="31954487" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40" title="Главная">
@@ -73,86 +74,88 @@
       </nav>
     </div>
   </header>
-  <section class="u-clearfix u-section-1" id="Main">
+  <section class="u-clearfix u-section-1" id="sec-ceed">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <div class="u-clearfix u-layout-wrap u-layout-wrap-1">
-        <div class="u-layout">
-          <div class="u-layout-row">
-            <img src="static/images/bg.png" width="33.3%">
-            <img src="static/images/bgTMP.png" width="33.3%">
-            <img src="static/images/bg.png" width="33.3%">
-          </div>
-        </div>
-      <h6 class="u-text u-text-default u-text-1">Фон 1</h6>
-      <h6 class="u-text u-text-default u-text-2">Свой фон</h6>
-      <h6 class="u-text u-text-default u-text-3">Фон 2</h6>
-      </div>
       <div class="u-align-center u-clearfix u-custom-html u-custom-html-1">
-        <style></style>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="" method="post" enctype="multipart/form-data" class="myForm">
           <label for="text-aaec" class="u-label u-label-1">Загрузите свой фон.png</label>
           <input type="file" name="background">
-          <input type="submit" class="u-btn u-btn-submit u-button-style">
+          <input type="submit" value="Загрузить" class="u-btn u-btn-submit u-button-style">
         </form>
         {% for cat, msg in get_flashed_messages(True) %}
         <div class="flash {{cat}}">{{msg}}</div>
         {% endfor %}
       </div>
+    </div>
+  </section>
+  <section class="u-clearfix u-section-2" id="Main">
+    <div class="u-clearfix u-sheet u-sheet-1">
       <div class="u-align-center u-form u-form-1">
-        <form action="" method="post" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+        <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
           <div class="u-form-group u-form-name">
-            <label for="name-c6f2" class="u-label u-label-2">ID группы </label>
-            <input type="text" placeholder="ID " id="name-c6f2" name="vkId" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-1" required="">
+            <label for="name-c6f2" class="u-label u-label-1">Группа</label>
+            <input type="text" placeholder="ID or URL" id="name-c6f2" name="vkId" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-1" required="">
           </div>
           <div class="u-form-group u-form-radiobutton u-form-group-2">
             <div class="u-form-radio-button-wrapper">
-              <input type="radio" name="BGDef" value="bg1" required="required">
+              <input type="radio" name="BGDef" value="bg1" checked="checked">
               <label class="u-label" for="radiobutton">Фон 1</label>
               <br>
-              <input type="radio" name="BGDef" value="bg2" required="required">
+              <input type="radio" name="BGDef" value="bg2">
               <label class="u-label" for="radiobutton">Фон 2</label>
               <br>
-              <input type="radio" name="BGDef" value="bgTMP" required="required">
-              <label class="u-label" for="radiobutton">Свой фон</label>
+              <input type="radio" name="BGDef" value="bg3">
+              <label class="u-label" for="radiobutton">Фон 3</label>
               <br>
+              <!-- <input type="radio" name="BGDef" value="bgTMP">
+              <label class="u-label" for="radiobutton">Свой фон</label>
+              <br> -->
             </div>
           </div>
           <div class="u-form-group u-form-group-3">
-            <label for="text-e07e" class="u-label u-label-6">Промежуток дней</label>
-            <input type="text" id="text-e07e" name="dayPromej" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-2" placeholder="по умолчанию 0">
+            <label for="text-e07e" class="u-label u-label-5">Промежуток дней</label>
+            <input type="text" id="text-e07e" name="dayPromej" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-2" placeholder="по умолчанию 1">
           </div>
           <div class="u-form-group u-form-radiobutton u-form-group-4">
             <div class="u-form-radio-button-wrapper">
-              <input type="radio" name="MalePos" value="all" required="required">
+              <input type="radio" name="MalePos" value="0" required="required" checked="checked">
               <label class="u-label" for="radiobutton-1">Всех</label>
               <br>
-              <input type="radio" name="MalePos" value="men" required="required">
+              <input type="radio" name="MalePos" value="2" required="required">
               <label class="u-label" for="radiobutton-1">Мужчин</label>
               <br>
-              <input type="radio" name="MalePos" value="wum" required="required">
+              <input type="radio" name="MalePos" value="1" required="required">
               <label class="u-label" for="radiobutton-1">Женщин</label>
               <br>
             </div>
           </div>
           <div class="u-form-group u-form-group-5">
-            <label for="text-8eb9" class="u-label u-label-10">ID города</label>
+            <label for="text-8eb9" class="u-label u-label-9">ID города</label>
             <input type="text" placeholder="По умолчанию все" id="text-8eb9" name="IDCountry" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-3">
           </div>
           <div class="u-form-checkbox u-form-group u-form-group-6">
-            <input type="checkbox" id="checkbox-6471" name="NoAva" value="On">
-            <label for="checkbox-6471" class="u-label u-label-11">не поздравлять если нету аватара</label>
+            <input type="checkbox" id="checkbox-6471" name="NoAva" value="On" checked="checked">
+            <label for="checkbox-6471" class="u-label u-label-10">не поздравлять если нету аватара</label>
           </div>
-          <!-- <div class="u-align-left u-form-group u-form-submit u-form-group-7">
-            <a class="u-btn u-btn-submit u-button-style">Отправить</a>
+          <!-- <div class="u-align-left u-form-group u-form-submit">
+            <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>
             <input type="submit" value="submit" class="u-form-control-hidden">
           </div> -->
-          <input type="submit" class="u-btn u-btn-submit u-button-style">
+          <input type="submit" onclick="spin()" class="u-btn u-btn-submit u-button-style">
 
-          <div class="u-form-send-message u-form-send-success"> Спасибо! Ваше сообщение отправлено. </div>
-          <div class="u-form-send-error u-form-send-message"> Отправка не удалась. Пожалуйста, исправьте ошибки и попробуйте еще раз. </div>
-          <!-- <input type="hidden" value="" name="recaptchaResponse"> -->
+          <!-- <div class="u-form-send-message u-form-send-success"> Спасибо! Ваше сообщение отправлено. </div> -->
+          <!-- <div class="u-form-send-error u-form-send-message"> Отправка не удалась. Пожалуйста, исправьте ошибки и попробуйте еще раз. </div> -->
         </form>
-
+        <div id="floatingCirclesG" >
+        	<div class="f_circleG" id="frotateG_01"></div>
+        	<div class="f_circleG" id="frotateG_02"></div>
+        	<div class="f_circleG" id="frotateG_03"></div>
+        	<div class="f_circleG" id="frotateG_04"></div>
+        	<div class="f_circleG" id="frotateG_05"></div>
+        	<div class="f_circleG" id="frotateG_06"></div>
+        	<div class="f_circleG" id="frotateG_07"></div>
+        	<div class="f_circleG" id="frotateG_08"></div>
+        </div>
       </div>
     </div>
   </section>

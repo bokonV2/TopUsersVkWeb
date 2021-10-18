@@ -29,7 +29,7 @@
   <meta property="og:type" content="website">
 </head>
 
-<body class="u-body">
+<body class="u-body u-stick-footer">
   <header class="u-clearfix u-header u-header" id="Menu">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <a href="/" data-page-id="31954487" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40" title="Главная">
@@ -76,12 +76,12 @@
   <section class="u-clearfix u-section-1" id="sec-adf9">
     <div class="u-clearfix u-sheet u-sheet-1">
       <h1 class="u-align-center u-text u-text-default u-text-1">Поздравление</h1>
-      <img class="u-image u-image-default u-image-1" src="static/images/tmp.jpg" alt="" data-image-width="400" >
-      <ol class="u-align-left u-text u-text-default u-text-2">
+      <img class="u-align-center u-image u-image-default u-image-1" src="static/images/tmp.jpg" alt="" data-image-width="1064" data-image-height="946">
+      <p class="u-align-left u-text u-text-2">
         {% for Person in persons %}
-        <li>{{ Person.id }}: {{ Person.name }} {{ Person.lastname }}</li>
+        *{{ Person.id }}({{ Person.name }} {{ Person.lastname }}), <br>
         {% endfor %}
-      </ol>
+      </p>
     </div>
   </section>
 
