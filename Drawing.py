@@ -5,6 +5,11 @@ from PIL import Image, ImageDraw
 from utils import open_json
 from objects import Person
 
+import sys
+
+sys.path.append('/home/c/cv67525/myenv/lib/python3.6/site-packages/')
+sys.path.append('/home/c/cv67525/public_html')
+sys.path.append('/home/c/cv67525/public_html/static/images')
 
 class Draw:
     im2_1 = None
@@ -12,42 +17,50 @@ class Draw:
     def __init__(self):
         pass
 
-    def start(self, persons, bgId):
+    def start(self, persons, bgId, myBG):
         self.persons = persons
-        self.index = bgId
+        if myBG:
+        	self.index = "bgTMP"
+        else:
+            self.index = bgId
+        print(bgId)
         lens = len(persons)
         self.sellectBg()
-        self.sellectFrame(lens)
-        if self.index == "bg1":
+        self.sellectFrame(lens, bgId)
+        if bgId == "bg1":
             self.drawInLenBg1(lens)
-        elif self.index == "bg2":
+        elif bgId == "bg2":
             self.drawInLenBg2(lens)
-        elif self.index == "bg3":
+        elif bgId == "bg3":
             self.drawInLenBg3(lens)
         self.saveEnd()
 
     def sellectBg(self):
-        self.im1 = Image.open(f'static/images/{self.index}.png').convert('RGBA').resize((1064,946))
+        self.im1 = Image.open(f'/home/c/cv67525/public_html/static/images/{self.index}.png').convert('RGBA').resize((1064,946))
 
-    def sellectFrame(self, len):
-        if self.index == "bg1":
-            self.im2 = Image.open(f'static/images/frame1/{len}_1.png').convert('RGBA')
-            self.im2_1 = Image.open(f'static/images/frame1/{len}_2.png').convert('RGBA')
+    def sellectFrame(self, len, bgId):
+        if bgId == "bg1":
+            self.im2 = Image.open(f'/home/c/cv67525/public_html/static/images/frame1/{len}_1.png').convert('RGBA')
+            self.im2_1 = Image.open(f'/home/c/cv67525/public_html/static/images/frame1/{len}_2.png').convert('RGBA')
 
     def saveEnd(self):
         self.im1 = self.im1.convert('RGB')
-        self.im1.save('static/images/tmp.jpg', quality=95)
+        self.im1.save('/home/c/cv67525/public_html/static/images/tmp.jpg', quality=95)
+        print("END")
 
     def dowOnUrl(self, ind):
         url = self.persons[ind].photo
+        # print(url)
         try:
             resp = requests.get(url, stream=True).raw
+            # print(resp)
         except requests.exceptions.RequestException as e:
+            print(f"Unable to open image {url}")
             sys.exit(1)
         try:
             im3 = Image.open(resp).convert("RGBA")
         except IOError:
-            print("Unable to open image")
+            print(f"Unable to open image {url}")
             sys.exit(1)
         return im3
 
@@ -85,7 +98,7 @@ class Draw:
             color += 1
             if color == 3:
                 color = 0
-            print(js[i][1][0])
+            #print(js[i][1][0])
             avatar.thumbnail((js[i][1][0],js[i][1][0]), resample=3)
             avatars = avatar
             self.im1.paste(avatars,(js[i][0][0],js[i][0][1]), avatars)
@@ -97,7 +110,7 @@ class Draw:
 
         for i in range(len):
             im2 = self.dowOnUrl(i)
-            print(js[i][1][0])
+            # print(js[i][1][0])
             im2D = ImageDraw.Draw(im2)
             im2D.rectangle((0,0,im2.width,im2.height), outline="white", width=6)
             im2 = im2.resize((js[i][1][0],js[i][1][0]), resample=3)

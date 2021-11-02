@@ -4,12 +4,12 @@
 <head>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta charset="utf-8">
-  <meta name="keywords" content="INTUITIVE">
+  <meta name="keywords" content="">
   <meta name="description" content="">
   <meta name="page_type" content="np-template-header-footer-from-plugin">
-  <title>Итог</title>
+  <title>Online Check</title>
   <link rel="stylesheet" href="static\css\nicepage.css?{{ version }}" media="screen">
-  <link rel="stylesheet" href="static\css\app.css?{{ version }}" media="screen">
+  <link rel="stylesheet" href="static\css\Online-Check.css?{{ version }}" media="screen">
   <script class="u-script" type="text/javascript" src="static\js\jquery.js?{{ version }}" defer=""></script>
   <script class="u-script" type="text/javascript" src="static\js\nicepage.js?{{ version }}" defer=""></script>
   <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
@@ -20,11 +20,14 @@
       "@context": "http://schema.org",
       "@type": "Organization",
       "name": "Site1",
-      "logo": "static/images/default-logo.png"
+      "logo": "images/default-logo.png"
+    }
+    function rel(){
+      parent.location.reload();
     }
   </script>
   <meta name="theme-color" content="#478ac9">
-  <meta property="og:title" content="Итог">
+  <meta property="og:title" content="Online Check">
   <meta property="og:description" content="">
   <meta property="og:type" content="website">
 </head>
@@ -77,15 +80,30 @@
       </nav>
     </div>
   </header>
-  <section class="u-clearfix u-section-1" id="sec-adf9">
+  <section class="u-clearfix u-section-1" id="sec-fa69">
     <div class="u-clearfix u-sheet u-sheet-1">
-      <h1 class="u-align-center u-text u-text-default u-text-1">Поздравление</h1>
-      <img class="u-align-center u-image u-image-default u-image-1" src="static/images/tmp.jpg?{{ timers }}" alt="" data-image-width="1064" data-image-height="946" >
-      <p class="u-align-left u-text u-text-2">
-        {% for Person in persons[:-1] %}
-        {{ Person }},
+      <div class="u-align-center u-form u-form-1">
+        <form action="#" method="POST" class="u-clearfix u-form-spacing-10 u-form-vertical u-inner-form" source="custom" name="form" style="padding: 10px;">
+          <div class="u-form-group u-form-message">
+            <label for="message-7bf5" class="u-label">Id пользователей или их короткие имена (screen_name)</label>
+            <textarea placeholder="записывая в столбик, количество элементов должно составлять не более 1000" rows="5" cols="50" id="message-7bf5" name="ids" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white" required=""
+              autofocus="autofocus"></textarea>
+          </div>
+          <div class="u-align-left u-form-group u-form-submit">
+            <!--<a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>-->
+            <!--<input type="submit" value="submit" class="u-form-control-hidden">-->
+            <input type="submit" class="u-btn u-btn-submit u-button-style">
+          </div>
+          <!-- <div class="u-form-send-message u-form-send-success"> Спасибо! Ваше сообщение отправлено. </div> -->
+          <!-- <div class="u-form-send-error u-form-send-message"> Отправка не удалась. Пожалуйста, исправьте ошибки и попробуйте еще раз. </div> -->
+        </form>
+      </div>
+
+      <p class="u-text u-text-1">
+        {% for Person in users[:-1] %}
+        id{{ Person }},
         {% endfor %}
-        {{ persons[-1] }}
+        id{{ users[-1] }}
       </p>
     </div>
   </section>

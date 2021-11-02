@@ -8,11 +8,11 @@
   <meta name="description" content="">
   <meta name="page_type" content="np-template-header-footer-from-plugin">
   <title>Главная</title>
-  <link rel="stylesheet" href="static\css\nicepage.css" media="screen">
-  <link rel="stylesheet" href="static\css\index.css" media="screen">
-  <!-- <script class="u-script" type="text/javascript" src="static\js\jquery.js" defer=""></script> -->
-  <script class="u-script" type="text/javascript" src="static\js\nicepage.js" defer=""></script>
-  <script class="u-script" type="text/javascript" src="static\js\my.js" defer=""></script>
+  <link rel="stylesheet" href="static\css\nicepage.css?{{ version }}" media="screen">
+  <link rel="stylesheet" href="static\css\index.css?{{ version }}" media="screen">
+  <script class="u-script" type="text/javascript" src="static\js\jquery.js?{{ version }}" defer=""></script> 
+  <script class="u-script" type="text/javascript" src="static\js\nicepage.js?{{ version }}" defer=""></script>
+  <script class="u-script" type="text/javascript" src="static\js\my.js?{{ version }}" defer=""></script>
   <link id="u-theme-google-font" rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i|Open+Sans:300,300i,400,400i,600,600i,700,700i,800,800i">
 
 
@@ -34,7 +34,7 @@
   <header class="u-clearfix u-header u-header" id="Menu">
     <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
       <a href="/" data-page-id="31954487" class="u-image u-logo u-image-1" data-image-width="80" data-image-height="40" title="Главная">
-        <img src="static/images/default-logo.png" class="u-logo-image u-logo-image-1">
+        <img src="static/images/default-logo.png?{{ version }}" class="u-logo-image u-logo-image-1">
       </a>
       <nav class="u-menu u-menu-dropdown u-offcanvas u-menu-1">
         <div class="menu-collapse" style="font-size: 1rem; letter-spacing: 0px;">
@@ -55,7 +55,9 @@
         </div>
         <div class="u-custom-menu u-nav-container">
           <ul class="u-nav u-unstyled u-nav-1">
-            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="Главная.html" style="padding: 10px 20px;">Главная</a>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/" style="padding: 10px 20px;">Главная</a>
+            </li>
+            <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base" href="/online" style="padding: 10px 20px;">Online Check</a>
             </li>
           </ul>
         </div>
@@ -65,6 +67,8 @@
               <div class="u-menu-close"></div>
               <ul class="u-align-center u-nav u-popupmenu-items u-unstyled u-nav-2">
                 <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/" style="padding: 10px 20px;">Главная</a>
+                </li>
+                <li class="u-nav-item"><a class="u-button-style u-nav-link" href="/online" style="padding: 10px 20px;">Online Check</a>
                 </li>
               </ul>
             </div>
@@ -114,7 +118,7 @@
           </div>
           <div class="u-form-group u-form-group-3">
             <label for="text-e07e" class="u-label u-label-5">Промежуток дней</label>
-            <input type="text" id="text-e07e" name="dayPromej" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-2" placeholder="по умолчанию 1">
+            <input type="text" id="text-e07e" name="dayPromej" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-2" placeholder="по умолчанию 0">
           </div>
           <div class="u-form-group u-form-radiobutton u-form-group-4">
             <div class="u-form-radio-button-wrapper">
@@ -133,9 +137,17 @@
             <label for="text-8eb9" class="u-label u-label-9">ID города</label>
             <input type="text" placeholder="По умолчанию все" id="text-8eb9" name="IDCountry" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-3">
           </div>
+          <div class="u-form-group u-form-group-5">
+            <label for="text-8eb9" class="u-label u-label-9">VK Token</label>
+            <input type="text" placeholder="По умолчанию основной" id="text-8eb9" name="VKToken" class="u-border-1 u-border-grey-30 u-input u-input-rectangle u-white u-input-3">
+          </div>
           <div class="u-form-checkbox u-form-group u-form-group-6">
             <input type="checkbox" id="checkbox-6471" name="NoAva" value="On" checked="checked">
-            <label for="checkbox-6471" class="u-label u-label-10">не поздравлять если нету аватара</label>
+            <label for="checkbox-6471" class="u-label u-label-10">Не поздравлять если нету аватара</label>
+          </div>
+          <div class="u-form-checkbox u-form-group u-form-group-6">
+            <input type="checkbox" id="checkbox-6471" name="bgTMP" value="TMP">
+            <label for="checkbox-6471" class="u-label u-label-10">Использовать свой фон</label>
           </div>
           <!-- <div class="u-align-left u-form-group u-form-submit">
             <a href="#" class="u-btn u-btn-submit u-button-style">Отправить</a>

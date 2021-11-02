@@ -98,7 +98,24 @@ class Server():
             except:
                 return render_template("app.html", persons = self.vk)
 
-        app.debug = True
+        @app.route('/online', methods=['GET', 'POST'])
+        def online():
+            users = " "
+            if request.method == 'POST':
+                users = request.form.get("ids")
+                print(users)
+                users = users.split()
+                users = ",".join(users)
+                print(users)
+                try:
+                    users = VkParser().getOnlineList(ids = users)
+                except Exception as e:
+                    users = ["error", e]
+
+            return render_template("Online-Check.html", users=users)
+
+
+        # app.debug = True
         app.run()
 
 
