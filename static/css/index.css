@@ -232,8 +232,15 @@
 
 .u-section-2 .u-form-group-2 {
   margin-left: 0;
+  width: 50%;
 }
 
+.u-section-2 .u-form-group-2_2 {
+  position:absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+}
 .u-section-2 .u-form-group-3 {
   margin-left: 0;
 }

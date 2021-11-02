@@ -1,7 +1,11 @@
 import datetime
 import json
 
+from config import dir
+
 now = datetime.datetime.now()
+# dir = "D:/git/TopUsersVkWeb"
+# dir = "/home/c/cv67525/public_html"
 
 def dates_srav(now, date, days=1):
     # print(now, date, days)
@@ -22,37 +26,23 @@ def dates_srav(now, date, days=1):
         return False
 
 def diePpl(now, timestamp):
-    #print(timestamp)
-    #timestamp = 1634625500
     value = datetime.datetime.fromtimestamp(timestamp)
-
     moynt = (now - value)
-
     if abs(moynt.days) <= 32:
         return True
     else:
         return False
-        
+
 def checkOnline(now, timestamp):
     value = datetime.datetime.fromtimestamp(timestamp)
     moynt = (now - value)
-    # print(moynt.seconds/60)
     if abs(moynt.seconds/60) <= 120:
         return True
     else:
         return False
-        
+
 def open_json(len, bg=""):
-    fileDir = f"/home/c/cv67525/public_html/data{bg}/{len}.json"
+    fileDir = f"{dir}/data{bg}/{len}.json"
     with open(fileDir, mode="r") as file:
         data = json.load(file)
     return data
-
-def test():
-    id = 0
-    ids = [1, 2, 5]
-    if id in ids:
-        print("DA")
-
-
-#test()

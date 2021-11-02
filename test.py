@@ -1,21 +1,20 @@
-# import requests
-# from pprint import pprint
+# test0 = "tmp.png"
+# test1 = "tmp.jpg"
 #
+# print("png" in test0)
+# print("png" in test1)
+
+# if str(city) in self.city or self.city[0] == -1:
+
+# test0 = "124"
+# test1 = True
 #
-# headers = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/93.0.4577.82 YaBrowser/21.9.2.169 Yowser/2.5 Safari/537.36"}
-#
-#
-#
-# response = requests.get("https://www.tiktok.com/@maysmbtw/video/7024097256169049350?lang=en", headers=headers, timeout=5)
-#
-# print(response)
-# print(response.text)
-# print(response)
-# print(response)
+# print(test0 in test1)
 
 
-
-a = "https://sun9-32.userapi.com/c841/u46431521/d_d4d43e3a.jpg"
-
-a = a.split(".")
-print(a)
+import requests
+url = "https://sun9-32.userapi.com/c841/u46431521/d_d4d43e3a.jpg"
+# https://sun9-8.userapi.com/c1240/u879176/d_ba0ebb57.jpg
+response = requests.get(url, stream=True)
+print(type(response.status_code))
+print(response.status_code)

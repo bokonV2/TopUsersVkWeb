@@ -1,134 +1,125 @@
 import os
 import sys
-
+    ####PATH####
 sys.path.append('/home/c/cv67525/myenv/lib/python3.6/site-packages/')
 sys.path.append('/home/c/cv67525/public_html')
 sys.path.append('/home/c/cv67525/public_html/static/images')
-
+    ####PATH####
 from datetime import datetime
-
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from werkzeug.utils import secure_filename
+from pprint import pprint
 
 from VKParsers import VkParser
-from Drawing import Draw
+from Drawing import Draw, OpenError
 from objects import Person
+from config import dir
 
 
-UPLOAD_FOLDER = '/home/c/cv67525/public_html/static/images'
+
+# dir = "D:/git/TopUsersVkWeb"
+# dir = "/home/c/cv67525/public_html"
+UPLOAD_FOLDER = f'{dir}/static/images/backgrounds'
 ALLOWED_EXTENSIONS = set(['png'])
-
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
-app.config['SECRET_KEY'] = 'penis'
+app.config['SECRET_KEY'] = 'awf35q6nery57a5a43'
 application = app
-version = "0.0.8"
+version = "0.0.9"
 
 dr = Draw()
 
-
-class trash():
-    vk = None
-    def __init__(self):
-        pass
-        
-    def sets(self, vk):
-        self.vk = vk
-        
-    def gets(self):
-        return self.vk
-
-vk = trash()
-vk.sets([Person(123, "name", "lastname", "https://static.wikia.nocookie.net/d567335d-748d-4aa9-b719-a002d842f2d4", "12.12"),]) 
+@app.route('/loadFile', methods=['GET', 'POST'])
+def loadFile():
+    if request.method == 'POST':
+        print(request.files)
+        background = request.files.get('background')
+        if background:
+            if "png" in background.filename:
+                background.save(f"{app.config['UPLOAD_FOLDER']}/bgTMP.png")
+                flash('Фон Загружен', category='success')
+            else:
+                flash('Только в .png формате', category='error')
+                return redirect("/")
+        else:
+            flash('Выберете фон', category='error')
+            return redirect("/")
+    return redirect("/")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
-        #print(request.files)
         print(request.form)
-        background = request.files.get('background')
-        if background:
-            bgName = background.filename.split('.')
-            bgName[0] = "bgTMP"
-            if bgName[-1] != "png":
-                flash('Только в .png формате', category='error')
-                return redirect("")
-
-            bgName = ".".join(bgName)
-            background.save(f"{app.config['UPLOAD_FOLDER']}/{bgName}")
-            flash('Фон Загружен', category='success')
-            return redirect("")
 
         vkId = request.form.get('vkId') #1 '123'
-        if not vkId:
-            flash('Выберете Файл', category='error')
-            return redirect("")
-
         bgDef = request.form.get('BGDef') #1 'bg1'
+        stDef = request.form.get('STDef') #1 'st1'
         dayPromej = request.form.get('dayPromej') #1 ''
+        malePos = int(request.form.get('MalePos')) #1-'all', 2-'women', 3-'men'
+        idCountry = request.form.get('IDCountry') #1 ''
+        noAva = request.form.get('NoAva') #0 {'on'}
+        myBG = request.form.get('bgTMP') #0 {'TMP'}
+        VKToken = request.form.get('VKToken') #1 ''
+
+        ####CHECK####
         try:
             dayPromej = int(dayPromej)
         except:
             dayPromej = 0
-        malePos = int(request.form.get('MalePos')) #1 'all'
-        idCountry = request.form.get('IDCountry') #1 ''
+        ####
         if idCountry == "":
             idCountry = [-1]
         else:
             idCountry = idCountry.split(',')
-            
-        VKToken = request.form.get('VKToken')
+        ####
         if VKToken == "":
             VKToken = None
         else:
             pass
-            
-        noAva = request.form.get('NoAva') #0 {'on'}
-        myBG = request.form.get('bgTMP') #0 {'TMP'}
-        
+        ####
         if myBG:
             myBG = True
         else:
             myBG = False
-
+        ####
         if noAva:
             noAva = False
         else:
             noAva = True
+        ####CHECK####
 
-        #try:
-        global vk
-
-        vk.sets(VkParser())
+        vk = VkParser()
         try:
-            vk.vk.startUrl(vkId, dayPromej, malePos, idCountry, noAva, VKToken)
+            vk.startUrl(vkId, dayPromej, malePos, idCountry, noAva, VKToken)
         except Exception as e:
-            print(e)
-            flash('VK API ERROR', category='error')
+            flash(f"{e}", category='error')
             return redirect("")
-        #except:
-        #    flash('Проверте группу', category='error')
-        #    return redirect("")
 
-        #try:
-        if len(vk.vk.allPerson) != 0:
-            dr.start(vk.vk.allPerson, bgDef, myBG)
+        if len(vk.allPerson) != 0:
+            def run():
+                try:
+                    dr.start(vk.allPerson, bgDef, stDef, myBG)
+                except OpenError as exc:
+                    vk.allPerson.pop(int(exc.args[0]))
+                    run()
+                except Exception as exc:
+                    flash(f"{exc}", category='error')
+                    return lambda x: redirect(x)
+                return None
+            bug = run()
+            if bug: return bug("")
         else:
             flash('Нет именинников', category='error')
             return redirect("")
-        #except Exception as e:
-        #    flash('Ошибка при создании изображения', category='error')
-        #    return redirect("")
-        session["vks"] = [i.gets() for i in vk.vk.allPerson]
+
+        session["vks"] = [i.gets() for i in vk.allPerson]
 
         return redirect("/final")
-    return render_template("index.html", version=version)
+    return render_template("index.html", version=version, title="Главная")
 
 @app.route('/final')
 def final():
-    return render_template("app.html", persons = session.get('vks'), timers=datetime.now(), version=version)
-
+    return render_template("app.html", persons = session.get('vks'), timers=datetime.now(), version=version, title="Итог")
 
 @app.route('/online', methods=['GET', 'POST'])
 def online():
@@ -143,8 +134,11 @@ def online():
         except Exception as e:
             users = ["error", e]
 
-    return render_template("Online-Check.html", users=users, version=version)
+    return render_template("Online-Check.html", users=users, version=version, title="Онлайн")
 
+@app.errorhandler(404)
+def bar(error):
+        return render_template('error.html', version=version, title="Ошибка"), 404
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)
