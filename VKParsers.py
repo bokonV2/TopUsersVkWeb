@@ -1,8 +1,6 @@
 import requests
 import traceback
 
-from pprint import pprint
-
 from utils import now, dates_srav, diePpl, checkOnline
 from objects import Person
 
@@ -119,12 +117,3 @@ class VkParser:
                             if sex == self.sex or self.sex == 0:
                                 if dates_srav(now, bdate, self.days):
                                     self.allPerson.append(Person(id, name, lastname, photo, bdate))
-
-if __name__ == '__main__':
-    a = VkParser()
-    a.startUrl("95608679", 100, 0, [-1], 0)
-    # a.startUrl("https://vk.com/happy_pc", 0, 0, [-1], 0)
-    # 95608679
-    # for i in a.allPerson:
-    #     pprint(i.gets())
-    #     pprint(i.bdate)

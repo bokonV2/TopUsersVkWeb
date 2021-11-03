@@ -8,10 +8,6 @@ from objects import Person
 from config import dir
 
 
-# dir = "D:/git/TopUsersVkWeb"
-# dir = "/home/c/cv67525/public_html"
-
-
 class CustomError(Exception):
     pass
 

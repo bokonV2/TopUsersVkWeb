@@ -4,11 +4,8 @@ import json
 from config import dir
 
 now = datetime.datetime.now()
-# dir = "D:/git/TopUsersVkWeb"
-# dir = "/home/c/cv67525/public_html"
 
 def dates_srav(now, date, days=1):
-    # print(now, date, days)
     datetmp = '.'.join([date.split('.')[0],date.split('.')[1]])
     try:
         d1 = datetime.datetime.strptime(datetmp, "%d.%m")

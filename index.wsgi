@@ -7,27 +7,22 @@ sys.path.append('/home/c/cv67525/public_html/static/images')
     ####PATH####
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, session
-from pprint import pprint
 
 from VKParsers import VkParser
 from Drawing import Draw, OpenError
 from objects import Person
 from config import dir
 
-
-
-# dir = "D:/git/TopUsersVkWeb"
-# dir = "/home/c/cv67525/public_html"
+    ####CONFIG_OBJECTS####
 UPLOAD_FOLDER = f'{dir}/static/images/backgrounds'
 ALLOWED_EXTENSIONS = set(['png'])
-
+version = "0.0.9"
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['SECRET_KEY'] = 'awf35q6nery57a5a43'
 application = app
-version = "0.0.9"
-
 dr = Draw()
+    ####CONFIG_OBJECTS####
 
 @app.route('/loadFile', methods=['GET', 'POST'])
 def loadFile():

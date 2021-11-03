@@ -1,5 +1,3 @@
-# from utils import date_transl, date_get_days
-
 class Person:
     id = int()
     name = str()
