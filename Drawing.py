@@ -19,7 +19,7 @@ class Draw:
     def __init__(self):
         pass
 
-    def start(self, persons, bgDef, stDef, myBG):
+    def start(self, persons, bgDef, stDef, myBG=None):
         self.persons = persons
 
         if myBG:

@@ -1,0 +1,57 @@
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
+
+  <div class="">
+    <table>
+      <tr>
+        <th>№</th>
+        <th>Группа</th>
+        <th>Тип отправки</th>
+        <th>Стиль</th>
+        <th>управление</th>
+        <th>статус</th>
+      </tr>
+      {% for nom, data in groups.items() %}
+      <tr>
+        <td>{{ nom }}</td>
+        <td id="url{{ nom }}">{{ data["url"] }}</td>
+        <td>{{ data["typeSend"] }}</td>
+        <td id="style{{ nom }}">{{ data["style"] }}</td>
+        <td>
+          <button type="button" name="button" onclick="getPic({{ nom }})">собрать др</button>
+          <button type="button" name="button">отправить в группу</button>
+          <button type="button" name="button" onclick="window.location.href = '{{ data['url'] }}'">открыть группу</button>
+        </td>
+        <td id="gr{{ nom }}">None</td>
+      </tr>
+      {% endfor %}
+    </table>
+  </div>
+  <div class="">
+    <img id="image" src="static/images/tmp.jpg" alt="Пример кода">
+  </div>
+  <script type="text/javascript">
+
+    function getPic(nom) {
+      $.ajax({
+          type: "POST",
+          url: "/getPicPOST",
+          data: {
+            url: document.getElementById('url'+nom).innerHTML,
+            style: document.getElementById('style'+nom).innerHTML
+          },
+          type: 'POST',
+          success: function(response) {
+              var json = jQuery.parseJSON(response)
+              $('#len').html(json.len)
+              console.log(response);
+              document.getElementById('gr'+nom).innerHTML = response;
+              document.getElementById('image').src += `?v=${new Date().getTime()}`;
+          },
+          error: function(error) {
+              console.log(error);
+          }
+      });
+    }
+
+  </script>

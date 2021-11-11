@@ -7,6 +7,7 @@ sys.path.append('/home/c/cv67525/public_html/static/images')
     ####PATH####
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+import json
 
 from VKParsers import VkParser
 from Drawing import Draw, OpenError
@@ -40,6 +41,50 @@ def loadFile():
             flash('Выберете фон', category='error')
             return redirect("/")
     return redirect("/")
+
+@app.route('/sender')
+def sender():
+    groups = {"1": {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}}
+    groups["2"] = {"url": "https://vk.com/happy_pc", "typeSend": "Предложка", "style":"1:1"}
+    groups["3"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
+    groups["4"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
+    groups["5"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
+    groups["6"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
+    groups["7"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
+    groups["8"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
+
+    return render_template("sender.html", version=version, title="Sender", groups=groups)
+
+@app.route('/getPicPOST', methods=['POST'])
+def getPicPOST():
+    print(request.form)
+    url = request.form.get("url")
+
+    vk = VkParser()
+    vk.startUrl(url, 365, 0, [-1], True)
+    if len(vk.allPerson) != 0:
+        def run():
+            try:
+                dr.start(vk.allPerson, "bg1", "st1")
+            except OpenError as exc:
+                vk.allPerson.pop(int(exc.args[0]))
+                run()
+            except Exception as exc:
+                flash(f"{exc}", category='error')
+                return lambda x: json.dumps(x)
+            return None
+        bug = run()
+        if bug: return bug("error get picture")
+    else:
+        flash('Нет именинников', category='error')
+        return json.dumps("error get picture")
+
+    return json.dumps("success get picture")
+
+@app.route('/sendPostPOST', methods=['POST'])
+def sendPostPOST():
+
+    return json.dumps("success send post")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
