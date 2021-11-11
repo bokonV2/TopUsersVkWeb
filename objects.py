@@ -1,5 +1,3 @@
-from utils import date_transl, date_get_days
-
 class Person:
     id = int()
     name = str()
@@ -37,7 +35,8 @@ class Groups:
         message="", design=[]):
 
         if type(date) == type("str"):
-            date = date_transl(date)
+            # date = date_transl(date)
+            pass
 
         self.url_group = url_group
         self.date = date

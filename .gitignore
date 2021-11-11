@@ -10,7 +10,6 @@ __pycache__/
 .Python
 frame/
 build/
-data/
 imagess/
 photo/
 develop-eggs/

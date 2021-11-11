@@ -1,71 +1,69 @@
 import requests
+import traceback
 
 from PIL import Image, ImageDraw
 
 from utils import open_json
 from objects import Person
+from config import dir
 
-import sys
 
-sys.path.append('/home/c/cv67525/myenv/lib/python3.6/site-packages/')
-sys.path.append('/home/c/cv67525/public_html')
-sys.path.append('/home/c/cv67525/public_html/static/images')
+class CustomError(Exception):
+    pass
+
+class OpenError(Exception):
+    pass
+
 
 class Draw:
-    im2_1 = None
-
     def __init__(self):
         pass
 
-    def start(self, persons, bgId, myBG):
+    def start(self, persons, bgDef, stDef, myBG=None):
         self.persons = persons
+
         if myBG:
         	self.index = "bgTMP"
         else:
-            self.index = bgId
-        print(bgId)
+            self.index = bgDef
+
         lens = len(persons)
         self.sellectBg()
-        self.sellectFrame(lens, bgId)
-        if bgId == "bg1":
+
+        if stDef == "st1":
+            self.sellectFrame(lens)
             self.drawInLenBg1(lens)
-        elif bgId == "bg2":
+        elif stDef == "st2":
             self.drawInLenBg2(lens)
-        elif bgId == "bg3":
+        elif stDef == "st3":
             self.drawInLenBg3(lens)
+
         self.saveEnd()
 
     def sellectBg(self):
-        self.im1 = Image.open(f'/home/c/cv67525/public_html/static/images/{self.index}.png').convert('RGBA').resize((1064,946))
+        self.im1 = Image.open(f'{dir}/static/images/backgrounds/{self.index}.png').convert('RGBA').resize((1064,946))
 
-    def sellectFrame(self, len, bgId):
-        if bgId == "bg1":
-            self.im2 = Image.open(f'/home/c/cv67525/public_html/static/images/frame1/{len}_1.png').convert('RGBA')
-            self.im2_1 = Image.open(f'/home/c/cv67525/public_html/static/images/frame1/{len}_2.png').convert('RGBA')
+    def sellectFrame(self, len):
+        self.im2 = Image.open(f'{dir}/static/images/frame/{len}_1.png').convert('RGBA')
+        self.im2_1 = Image.open(f'{dir}/static/images/frame/{len}_2.png').convert('RGBA')
 
     def saveEnd(self):
         self.im1 = self.im1.convert('RGB')
-        self.im1.save('/home/c/cv67525/public_html/static/images/tmp.jpg', quality=95)
-        print("END")
+        self.im1.save(f'{dir}/static/images/tmp.jpg', quality=95)
 
     def dowOnUrl(self, ind):
         url = self.persons[ind].photo
-        # print(url)
         try:
             resp = requests.get(url, stream=True).raw
-            # print(resp)
-        except requests.exceptions.RequestException as e:
-            print(f"Unable to open image {url}")
-            sys.exit(1)
-        try:
-            im3 = Image.open(resp).convert("RGBA")
-        except IOError:
-            print(f"Unable to open image {url}")
-            sys.exit(1)
-        return im3
+        except Exception as e:
+            traceback.print_exc()
+            raise CustomError(f"Unable to load image {url} <{e}")
 
-    def openPhoto(self, url=1):
-        im3 = Image.open()
+        try:
+            im3 = Image.open(resp).convert("RGBA").resize((200,200))
+        except IOError:
+            traceback.print_exc()
+            raise OpenError(ind)
         return im3
 
     def drawInLenBg1(self, len):
@@ -124,5 +122,15 @@ class Draw:
 if __name__ == '__main__':
     i = Person(1, "1", "1", "https://sun9-71.userapi.com/c855728/v855728961/4c82a/syoyTxKpVXc.jpg?ava=1", "1")
     all = [i for g in range(5)]
+    all.append(Person(1,"1","1","https://sun9-32.userapi.com/c841/u46431521/d_d4d43e3a.jpg", "1"))
+    all.append(Person(1,"1","1","https://sun9-8.userapi.com/c1240/u879176/d_ba0ebb57.jpg", "1"))
     a = Draw()
-    a.start(all, "bg3")
+    def run():
+        global all
+        try:
+            a.start(all, "bg3", 0)
+        except Exception as exc:
+            print(exc)
+            all.pop(int(int(exc.args[0])))
+            run()
+    run()

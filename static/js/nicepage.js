@@ -1422,35 +1422,35 @@
   6114: function(t, e, i) {
     "use strict";
 
-    function n() {
-      function t(form, url) {
-        var t = form.find("input[name=name]").val(),
-          a = form.find("input[name=email]").val(),
-          data = {
-            Email: a,
-            EMAIL: a
-          };
-        if (t) data.Name = t, data.FNAME = t;
-        var s = form.find("input, textarea");
-        o.each(s, function(index, t) {
-          var e = o(t).attr("name"),
-            i = o(t).val();
-          if (e && i) data[e.toUpperCase()] = i
-        }), url = url.replace("/post?", "/post-json?") + "&c=?";
-        var l = url.indexOf("u=") + 2;
-        l = url.substring(l, url.indexOf("&", l));
-        var u = url.indexOf("id=") + 3;
-        u = url.substring(u, url.indexOf("&", u)), data["b_" + l + "_" + u] = "", o.ajax({
-          url: url,
-          data: data,
-          dataType: "jsonp"
-        }).done(function(t) {
-          if ("success" === t.result || /already/.test(t.msg)) i(form), e(form);
-          else n(form, t.msg)
-        }).fail(function() {
-          n(form)
-        });
-      }
+    // function n() {
+    //   function t(form, url) {
+    //     var t = form.find("input[name=name]").val(),
+    //       a = form.find("input[name=email]").val(),
+    //       data = {
+    //         Email: a,
+    //         EMAIL: a
+    //       };
+    //     if (t) data.Name = t, data.FNAME = t;
+    //     var s = form.find("input, textarea");
+    //     o.each(s, function(index, t) {
+    //       var e = o(t).attr("name"),
+    //         i = o(t).val();
+    //       if (e && i) data[e.toUpperCase()] = i
+    //     }), url = url.replace("/post?", "/post-json?") + "&c=?";
+    //     var l = url.indexOf("u=") + 2;
+    //     l = url.substring(l, url.indexOf("&", l));
+    //     var u = url.indexOf("id=") + 3;
+    //     u = url.substring(u, url.indexOf("&", u)), data["b_" + l + "_" + u] = "", o.ajax({
+    //       url: url,
+    //       data: data,
+    //       dataType: "jsonp"
+    //     }).done(function(t) {
+    //       if ("success" === t.result || /already/.test(t.msg)) i(form), e(form);
+    //       else n(form, t.msg)
+    //     }).fail(function() {
+    //       n(form)
+    //     });
+    //   }
 
       function e(form) {
         new Dialog(form).close()
