@@ -1,3 +1,6 @@
+from loguru import logger
+
+
 class Person:
     id = int()
     name = str()
@@ -16,35 +19,38 @@ class Person:
     	return f"*id{self.id} ({self.name} {self.lastname})"
 
 
-class Groups:
-    url_group = str()
-    date = "datetime"
-    url_chat = str()
-    money = int()
-    type_send = str()
-    range_send = str()
-    message = str()
-    design = list()
+class Group:
 
-    days = int()
-
-    def __init__(self,
-        url_group="", date=None,
-        url_chat="", money=0,
-        type_send="", range_send="",
-        message="", design=[]):
-
-        if type(date) == type("str"):
-            # date = date_transl(date)
-            pass
-
-        self.url_group = url_group
-        self.date = date
-        self.url_chat = url_chat
+    def __init__(self, urlGroup, endDay, urlChat, money, typeSend, rangeSend, messageSend, stylePic):
+        self.urlGroup = urlGroup
+        self.endDay = endDay
+        self.urlChat = urlChat
         self.money = money
-        self.type_send = type_send
-        self.range_send = range_send
-        self.message = message
-        self.design = design
+        self.typeSend = typeSend
+        self.rangeSend = rangeSend
+        self.messageSend = messageSend
+        self.stylePic = stylePic
 
-        self.days = date_get_days(date)
+    def getDict(self):
+        grDict = {
+            "urlGroup":self.urlGroup,
+            "endDay":self.endDay,
+            "urlChat":self.urlChat,
+            "money":self.money,
+            "typeSend":self.typeSend,
+            "rangeSend":self.rangeSend,
+            "messageSend":self.messageSend,
+            "stylePic":self.stylePic,
+            }
+        return grDict
+
+    def print(self):
+        logger.debug(f"group \t{self.urlGroup}")
+        logger.debug(f"end \t{self.endDay}")
+        logger.debug(f"chat \t{self.urlChat}")
+        logger.debug(f"money \t{self.money}")
+        logger.debug(f"type \t{self.typeSend}")
+        logger.debug(f"range \t{self.rangeSend}")
+        logger.debug(f"message \t{self.messageSend}")
+        logger.debug(f"style \t{self.stylePic}")
+        logger.debug(f"<==+==>")

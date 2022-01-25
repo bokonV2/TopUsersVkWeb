@@ -1,19 +1,19 @@
-import datetime
+from datetime import datetime
 import json
 
 from config import dir
 
-now = datetime.datetime.now()
+now = datetime.now()
 
 def dates_srav(now, date, days=1):
     try:
         datetmp = '.'.join([date.split('.')[0],date.split('.')[1]])
         try:
-            d1 = datetime.datetime.strptime(datetmp, "%d.%m")
+            d1 = datetime.strptime(datetmp, "%d.%m")
         except:
             datetmp = '.'.join([str(int(date.split('.')[0])-1),date.split('.')[1]])
-            d1 = datetime.datetime.strptime(datetmp, "%d.%m")
-        d2 = datetime.datetime.strptime(f"{int(now.strftime('%d'))}.{int(now.strftime('%m'))}", "%d.%m")
+            d1 = datetime.strptime(datetmp, "%d.%m")
+        d2 = datetime.strptime(f"{int(now.strftime('%d'))}.{int(now.strftime('%m'))}", "%d.%m")
         day = (d1 - d2).days
         if day >= 0 and day <= days:
             return True
@@ -24,9 +24,20 @@ def dates_srav(now, date, days=1):
             return False
     except:
         return False
-        
+
+def get_day_lost(date):
+    if type(date) == type("str"):
+        date = datetime.strptime(date, '%d.%m.%Y')
+
+    day = (now - date).days
+    # print(day)
+    return day
+    # 2022-10-28 00:00:00
+    # date = datetime.strptime(date, '%Y-%m-%d')
+
+
 def diePpl(now, timestamp):
-    value = datetime.datetime.fromtimestamp(timestamp)
+    value = datetime.fromtimestamp(timestamp)
     moynt = (now - value)
     if abs(moynt.days) <= 32:
         return True
@@ -34,7 +45,7 @@ def diePpl(now, timestamp):
         return False
 
 def checkOnline(now, timestamp):
-    value = datetime.datetime.fromtimestamp(timestamp)
+    value = datetime.fromtimestamp(timestamp)
     moynt = (now - value)
     if abs(moynt.seconds/60) <= 120:
         return True

@@ -7,6 +7,7 @@ sys.path.append('/home/c/cv67525/public_html/static/images')
     ####PATH####
 from datetime import datetime
 from flask import Flask, render_template, request, redirect, url_for, flash, session
+from pprint import pprint
 import json
 
 from VKParsers import VkParser
@@ -42,30 +43,18 @@ def loadFile():
             return redirect("/")
     return redirect("/")
 
-@app.route('/sender')
-def sender():
-    groups = {"1": {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}}
-    groups["2"] = {"url": "https://vk.com/happy_pc", "typeSend": "Предложка", "style":"1:1"}
-    groups["3"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
-    groups["4"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
-    groups["5"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
-    groups["6"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
-    groups["7"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
-    groups["8"] = {"url": "https://vk.com/club208480690", "typeSend": "Предложка", "style":"1:1"}
-
-    return render_template("sender.html", version=version, title="Sender", groups=groups)
-
 @app.route('/getPicPOST', methods=['POST'])
 def getPicPOST():
     print(request.form)
     url = request.form.get("url")
+    style = int(request.form.get("style"))+1
 
     vk = VkParser()
     vk.startUrl(url, 365, 0, [-1], True)
     if len(vk.allPerson) != 0:
         def run():
             try:
-                dr.start(vk.allPerson, "bg1", "st1")
+                dr.start(vk.allPerson, f"bg{style}", f"st{style}")
             except OpenError as exc:
                 vk.allPerson.pop(int(exc.args[0]))
                 run()
@@ -80,11 +69,6 @@ def getPicPOST():
         return json.dumps("error get picture")
 
     return json.dumps("success get picture")
-
-@app.route('/sendPostPOST', methods=['POST'])
-def sendPostPOST():
-
-    return json.dumps("success send post")
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
